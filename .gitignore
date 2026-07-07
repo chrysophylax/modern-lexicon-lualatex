@@ -5,3 +5,6 @@
 *.idx
 *.ilg
 *.ind
+*.fls
+*.fdb*
+#*.*#
