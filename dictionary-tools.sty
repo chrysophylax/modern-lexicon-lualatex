@@ -1,0 +1,172 @@
+% dictionary-tools.sty
+% Typesetting machinery for the CSV-driven dictionary. Pairs with
+% dictionary-tools.lua (the engine), which this package loads.
+%
+% CONTRACT: the Lua engine emits \printentry, \printsense, \printexample,
+% \printexamplecont, \letterheader, \entrydone and \index -- every one of
+% them must stay defined here (\index comes from imakeidx).
+%
+% Division of labour: everything the engine's output depends on lives here;
+% page design (class, geometry, main font, header layout, front matter)
+% stays in the document. The document builds its running heads from the
+% mark machinery provided here: \FirstMark[page]{dictword},
+% \LastMark[page]{dictword} and \contnote.
+%
+% Requires LuaLaTeX and a LaTeX kernel with mark classes (2022+).
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{dictionary-tools}[2026/07/08 v1.0 CSV dictionary engine]
+
+\RequirePackage{fontspec}   % \newfontfamily for the example marker
+\RequirePackage{xcolor}     % gray IPA brackets in \phonetic
+\RequirePackage{imakeidx}   % the engine emits \index{sortkey@word}
+
+% --- LUA ENGINE ---
+% The engine is a proper Lua module found next to the document (kpse
+% searches the working directory). Loading via require keeps the Lua
+% code out of TeX's catcode reach entirely.
+\directlua{dicttools = require("dictionary-tools")}
+
+% Build the dictionary body from a CSV file. \luaescapestring guards the
+% filename on its way into the Lua string literal.
+\newcommand{\builddictionary}[1]{%
+  \directlua{dicttools.process_dictionary_csv("\luaescapestring{#1}")}%
+}
+
+% --- ENGINE CONFIGURATION ---
+% Definitions longer than this many characters switch from the keep-whole
+% policy to sense-level breaking (see \printsense below).
+\newcommand{\dictsensethreshold}[1]{%
+  \directlua{dicttools.config.sense_split_threshold = \number#1}}
+% Custom collation alphabet file (default sortorder.txt). If the file is
+% absent, entries keep CSV order and no letter headers are produced.
+\newcommand{\dictsortorderfile}[1]{%
+  \directlua{dicttools.config.sort_order_file = "\luaescapestring{#1}"}}
+
+% --- FONT SIZE / GRID ---
+% All entry material is set at 9.5pt on a 14pt baseline grid. Documents
+% locking their pages to the grid (\flushbottom) should keep headers and
+% display material at multiples of 14pt. \renewcommand to retune.
+\newcommand{\dictfontsize}{\fontsize{9.5pt}{14pt}\selectfont}
+
+% --- RUNNING-HEAD MARK MACHINERY ---
+% Modern kernel mark classes (LaTeX 2022+). Unlike legacy e-TeX \newmarks
+% classes, these are tracked correctly across BOTH columns of a twocolumn
+% page: \FirstMark[page]/\LastMark[page] give the true first/last mark of
+% the whole page, not just of the second column's output cycle.
+\NewMarkClass{dictword}
+
+% Continuation marker: 'dictcont' carries the current headword while an
+% entry is "open" (set by \printentry, cleared by \entrydone). If a page
+% begins with a non-empty dictcont mark inherited from the previous page
+% (\TopMark[page]), that page starts INSIDE a long entry and the running
+% head gains a "(word, cont.)" note -- the classic print-dictionary
+% solution for entries spanning multiple pages.
+\NewMarkClass{dictcont}
+% Emptiness is decided by typesetting the mark into a box and measuring
+% it: \TopMark is not expandable inside \edef, so token-level tests
+% (\ifx / \detokenize) always see the unexpanded command and misfire.
+\newsavebox\contnotebox
+\newcommand{\contnote}{%
+  \sbox\contnotebox{\TopMark[page]{dictcont}}%
+  \ifdim\wd\contnotebox>0pt
+    \ \ (\usebox\contnotebox, cont.)%
+  \fi}
+
+% --- ENTRY MACROS ---
+% Prints nothing (not even empty brackets) when the IPA cell is empty
+\newcommand{\phonetic}[1]{%
+  \if\relax\detokenize{#1}\relax\else{\textcolor[rgb]{0.3,0.3,0.3}{[#1]}}\fi}
+\newcommand{\pos}[1]{{\em #1}}
+
+% The Lua engine emits \index{sortkey@word} itself so the index follows
+% the custom collation -- no indexing happens here.
+% \interlinepenalty forbids column/page breaks INSIDE the entry paragraph
+% (dictionary convention: an entry never splits); breaks remain allowed
+% between entries. Grouped so the penalty does not leak out.
+% The marks are inserted AFTER the headword, i.e. once the paragraph has
+% truly started. \InsertMark is a bare \marks node and does NOT trigger
+% horizontal mode, so placed before \textbf it would still land in the
+% vertical list ahead of the entry's first line -- and since a mark node
+% is non-discardable, the baselineskip glue after it becomes a legal
+% breakpoint: when the entry moves to the next column/page its marks
+% legally stay behind, skewing the running head by one entry/page. In
+% the horizontal list the marks migrate out glued AFTER the entry's
+% first line and can never be separated from it.
+\newcommand{\printentry}[4]{%
+  {\par\dictfontsize
+   \interlinepenalty=10000
+   \hangindent=1.5em\hangafter=1%
+   \textbf{#1}%
+   \InsertMark{dictword}{#1}% Update header marks
+   \InsertMark{dictcont}{#1}% Entry is now "open" for the continuation note
+   \ \phonetic{#2} \pos{#3} #4\par}%
+}
+
+% --- SENSE-LEVEL FALLBACK (large entries) ---
+% For entries whose definition exceeds the sense-split threshold (see the
+% Lua engine), the keep-whole policy would leave huge column gaps or
+% overflow the page. Fallback: the headword plus sense 1 stay one
+% unbreakable block (\printentry above), and every further numbered sense
+% becomes its own unbreakable paragraph typeset by \printsense. Column/
+% page breaks are thereby allowed BETWEEN senses but never inside one --
+% the standard print-dictionary compromise for long entries.
+\newcommand{\printsense}[1]{%
+  {\par\dictfontsize
+   \interlinepenalty=10000
+   \hangindent=1.5em\hangafter=1%
+   #1\par}%
+}
+
+% Closes an entry. Clearing the dictcont mark records "page top is
+% between entries" so the running head shows no continuation note.
+% The Lua engine injects this INSIDE the entry's final paragraph (last
+% macro argument) so the mark migrates out glued to the last line -- as
+% a stand-alone vertical-mode token it could be pushed to the next page
+% while the entry stays, leaving the entry spuriously "open".
+\newcommand{\entrydone}{\InsertMark{dictcont}{}}
+
+% --- EXAMPLE LINE MACROS ---
+% Charis SIL has no glyph for U+25C8, so fetch it from DejaVu Sans,
+% scaled down slightly to sit well against the 9.5pt Charis text.
+% \renewcommand\exmarker (or \exmarkerfont) if your main font differs.
+\newfontfamily\exmarkerfont{DejaVu Sans}[Scale=0.75]
+\newcommand{\exmarker}{{\exmarkerfont ◈ }}
+
+% One example per line, kept on the 14pt baseline grid via \dictfontsize.
+% Indented to the entry hang (1.5em); wrapped lines hang a little further.
+% \nopagebreak glues the example to the material above (its entry or the
+% previous example); \interlinepenalty keeps the example line itself whole.
+\newcommand{\printexample}[2]{%
+  {\par\nopagebreak\dictfontsize
+   \interlinepenalty=10000
+   \leftskip=1.5em
+   \hangindent=1em\hangafter=1%
+   \noindent\exmarker\,\textbf{#1} #2\par}%
+}
+
+% Breakable variant for LARGE entries: chaining \nopagebreak through a
+% long example list would create one giant unsplittable block, so only
+% the first example is glued to its entry; the rest use this macro and
+% may break onto the next column/page (each line still kept whole).
+\newcommand{\printexamplecont}[2]{%
+  {\par\dictfontsize
+   \interlinepenalty=10000
+   \leftskip=1.5em
+   \hangindent=1em\hangafter=1%
+   \noindent\exmarker\,\textbf{#1} #2\par}%
+}
+
+% --- LETTER BLOCK HEADER ---
+% Every letter block begins on a fresh page with a large headline letter.
+% \raggedbottom is only in force while \clearpage ships out the (possibly
+% short) last page of the previous block; the \flushbottom grid lock is
+% restored immediately after. The headline sits on a 42pt (3 x 14pt) line
+% so the entries below stay on the baseline grid.
+\newcommand{\letterheader}[1]{%
+  \raggedbottom
+  \clearpage
+  \flushbottom
+  {\centering\fontsize{28pt}{42pt}\selectfont\bfseries #1\par}%
+}
+
+\endinput
