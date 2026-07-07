@@ -1,6 +1,16 @@
 # Dictionary Sample
 
-A print-ready dictionary built with **LuaLaTeX**. Entries live in `lexicon.csv` and are parsed at compile time by an embedded Lua CSV engine in `dictionary.tex`.
+A print-ready dictionary built with **LuaLaTeX**. Entries live in `lexicon.csv` and are parsed at compile time by a Lua CSV engine.
+
+## Project layout
+
+| File | Role |
+|---|---|
+| `dictionary.tex` | The document: page design (geometry, fonts, grid, running-head layout), front matter, `\builddictionary{lexicon.csv}` call. |
+| `dictionary-tools.sty` | Typesetting machinery: entry/sense/example/letter macros, running-head mark classes, engine loader, config setters. |
+| `dictionary-tools.lua` | The engine: CSV parsing, definition/label/sense formatting, custom collation, index keys. Emits the macros defined in the `.sty` (the contract is documented in both file headers). |
+| `lexicon.csv` | The entries (see *CSV format*). |
+| `sortorder.txt` | Optional collation alphabet (see *Sort order*). |
 
 ## Building
 
@@ -40,9 +50,11 @@ Optional file listing every sortable "letter" separated by commas and/or blanks 
 
 Without the file, entries flow in CSV order with no letter pages.
 
+A different filename can be set in the preamble: `\dictsortorderfile{my-alphabet.txt}`.
+
 ## Page breaking policy
 
-Print dictionaries never let an entry dribble onto the next page — but they also never push a giant entry to a fresh page (that would leave a hole). This project follows the same graded policy, keyed off `SENSE_SPLIT_THRESHOLD` (characters of raw definition, default `600`, set in the Lua engine in `dictionary.tex`):
+Print dictionaries never let an entry dribble onto the next page — but they also never push a giant entry to a fresh page (that would leave a hole). This project follows the same graded policy, keyed off a sense-split threshold (characters of raw definition, default `600` in `dictionary-tools.lua`, tunable from the preamble via `\dictsensethreshold{600}`):
 
 1. **Normal entries** (≤ threshold): headword + definition + all examples form one unbreakable block. If it doesn't fit the current column, the whole block moves to the next column/page and the previous column runs short (accepted grid trade-off; expect underfull `\vbox` warnings with `\flushbottom`).
 2. **Large entries** (> threshold): the *sense-level fallback*. The headword plus sense `1.` stay one unbreakable block (the headword can never be orphaned); every further numbered sense is its own unbreakable paragraph, with breaks allowed **between** senses. The first example is glued to the entry; further examples may break freely (each example line itself stays whole).
@@ -64,7 +76,6 @@ LaTeX packages (all included in TeX Live / MiKTeX):
 - `microtype`
 - `imakeidx`
 - `fancyhdr`
-- `luacode`
 
 System fonts:
 
