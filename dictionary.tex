@@ -1,0 +1,154 @@
+\documentclass[10pt,twoside,twocolumn]{article}
+\usepackage{geometry}
+\geometry{paperwidth=180mm, paperheight=250mm, inner=22mm, outer=18mm, top=25mm, bottom=22mm, headsep=6mm, footskip=10mm}
+
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{microtype}
+\setmainfont{Charis SIL} % Ensure this font is installed on your system
+
+% --- GRID AND TYPOGRAPHY LOCKS ---
+\renewcommand{\baselinestretch}{1.0}
+\newcommand{\dictfontsize}{\fontsize{9.5pt}{14pt}\selectfont}
+\setlength{\emergencystretch}{2em}
+\setlength{\parskip}{0pt}
+\flushbottom
+
+% --- index package ---
+\usepackage{imakeidx}
+\makeindex[options=-q]
+
+% --- RUNNING HEADERS ---
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\newmarks\dictmark
+
+\fancyhead[LE,RO]{\small\bfseries\thepage}
+\fancyhead[LO,RE]{\small\bfseries\firstmarks\dictmark\ \ --\ \ \botmarks\dictmark}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% --- ENTRY MACRO ---
+\newcommand{\phonetic}[1]{{\textcolor[rgb]{0.3,0.3,0.3}{[#1]}}}
+\newcommand{\pos}[1]{{\em #1}}
+
+\newcommand{\printentry}[4]{%
+  \marks\dictmark{#1}% Update header marks
+  \index{#1} % log word and page number
+  \par\dictfontsize
+  \hangindent=1.5em\hangafter=1%
+  \textbf{#1} \phonetic{#2} \pos{#3} #4\par
+}
+
+% --- EMBEDDED LUA CSV PARSER ENGINE ---
+\usepackage{luacode}
+\begin{luacode*}
+function parse_csv_line(line)
+    local res = {}
+    local pos = 1
+    -- Ensure line ends cleanly with a separator to capture trailing empty cells
+    line = line .. ',' 
+    
+    while pos <= #line do
+        local next_char = string.sub(line, pos, pos)
+        if next_char == '"' then
+            -- Quoted field parsing
+            local txt = ""
+            pos = pos + 1
+            while pos <= #line do
+                local startp, endp = string.find(line, '^[^"]*', pos)
+                txt = txt .. string.sub(line, pos, endp)
+                pos = endp + 1
+                if string.sub(line, pos, pos) == '"' then
+                    if string.sub(line, pos + 1, pos + 1) == '"' then
+                        txt = txt .. '"' -- Escaped quote sign inside cell
+                        pos = pos + 2
+                    else
+                        pos = pos + 1 -- Outer closing quote sign reached
+                        break
+                    end
+                end
+            end
+            table.insert(res, txt)
+            pos = pos + 1 -- Skip the trailing comma delimiter
+        else
+            -- Plain unquoted field extraction
+            local startp, endp = string.find(line, '^[^,]*', pos)
+            if endp then
+                table.insert(res, string.sub(line, pos, endp))
+                pos = endp + 2
+            else
+                break
+            end
+        end
+    end
+    return res
+end
+
+-- Safely sanitize critical LaTeX control characters found inside strings
+function escape_latex(text)
+    if not text then return "" end
+    text = text:gsub("\\", "\\textbackslash{}")
+    text = text:gsub("([&%%%$#{}_])", "\\%1")
+    text = text:gsub("~", "\\textasciitilde{}")
+    text = text:gsub("%^", "\\textasciicircum{}")
+    return text
+end
+
+-- Main engine pipeline
+function process_dictionary_csv(filename)
+    local file = io.open(filename, "r")
+    if not file then
+        tex.print("\\textbf{Error: CSV file not found!}")
+        return
+    end
+
+    local is_header = true
+    for line in file:lines() do
+        if is_header then
+            is_header = false
+        else
+            -- Strip trailing windows/unix carriage returns smoothly
+            line = line:gsub("[\r\n]", "")
+            if line:gsub("%s+", "") ~= "" then 
+                local data = parse_csv_line(line)
+                if #data >= 4 then
+                    local word       = escape_latex(data[1])
+                    local ipa        = data[2] -- Retain raw string safely for font structures
+                    local pos        = escape_latex(data[3])
+                    local definition = escape_latex(data[4])
+                    
+                    -- Ship parameters directly back into TeX macros
+                    tex.print(string.format("\\printentry{%s}{%s}{%s}{%s}", word, ipa, pos, definition))
+                end
+            end
+        end
+    end
+    file:close()
+end
+\end{luacode*}
+
+% Call command to kick off compilation loops
+\newcommand{\builddictionary}[1]{%
+  \directlua{process_dictionary_csv("#1")}%
+}
+% here our actual document begins
+% let there be book
+\begin{document}
+\pagenumbering{roman}
+% the pages before the actual dictionary
+\include{cover}
+\include{copyright}
+\include{thanks}
+\include{foreword}
+\include{forepage}
+% build the lexicon from our csv
+\pagenumbering{arabic}
+\builddictionary{lexicon.csv}
+\clearpage
+\raggedbottom % allow undedfull vbox for last entries
+% 3. Switch back to a cleaner header format for the index section
+\fancyhead[LO,RE]{\small\bfseries INDEX}
+\printindex
+\end{document}
+
