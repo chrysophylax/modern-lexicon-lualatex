@@ -1,74 +1,136 @@
-Word,IPA,POS,Definition
-Acumen,əˈkjuː.mən,n & f,"The ability to make good judgments and quick decisions, typically in a particular domain."
-Banal,bəˈnɑːl,adj,So lacking in originality as to be obvious and boring.
-Cacophony,kəˈkɒf.ə.ni,n,"A harsh, discordant mixture of sounds often occurring in busy city environments."
-Deferential,ˌdef.əˈren.ʃəl,adj,Showing respect and humble submission to a higher authority or elder.
-Ephemeral,ɪˈfem.ər.əl,adj,Lasting for a very short time; transient or fleeting by nature.
-Furtive,ˈfɜː.tɪv,adj,"Attempting to avoid notice or attention, typically because of guilt or a belief that discovery would lead to trouble."
-Garrulous,ˈɡær.əl.əs,adj,"Excessively talkative, especially on trivial matters in social settings."
-Harangue,həˈræŋ,n,A lengthy and aggressive speech directed at an audience or opponent.
-Idiosyncrasy,ˌɪd.i.əˈsɪŋ.krə.si,n,A mode of behavior or way of thought peculiar to an individual.
-Juxtapose,ˌdʒʌk.stəˈpəʊz,v,To place close together or side by side for comparison or contrast.
-Kinetics,kɪˈnet.ɪks,n,The branch of mechanics that deals with the actions of forces in producing or changing the motion of masses.
-Laconic,ləˈkɒn.ɪk,adj,Using very few words in writing or speech; concise to the point of seeming rude.
-Meticulous,məˈtɪk.jə.ləs,adj,Showing great attention to detail; very careful and precise.
-Nefarious,nɪˈfeə.ri.əs,adj,"Wicked, impious, or criminal; extremely villainous in action."
-Obfuscate,ˈɒb.fʌs.keɪt,v,"To render obscure, unclear, or unintelligible on purpose."
-Paradigmatic,ˌpær.ə.dɪɡˈmæt.ɪk,adj,Serving as a typical example or pattern of something; exemplary.
-Quixotic,kwɪkˈsɒt.ɪk,adj,"Exceedingly idealistic, unrealistic, and impractical."
-Recalcitrant,rɪˈkæl.sɪ.trənt,adj,Having an obstinately uncooperative attitude toward authority or discipline.
-Sycophant,ˈsɪk.ə.fænt,n,A person who acts obsequiously toward someone important in order to gain advantage.
-Taciturn,ˈtæs.ɪ.tɜːn,adj,Reserved or uncommunicative in speech; saying very little.
-Ubiquitous,juːˈbɪk.wɪ.təs,adj,Present, appearing, or found everywhere at the same time.
-Venerable,ˈven.ər.ə.bəl,adj,"Accorded a great deal of respect, especially because of age, wisdom, or character."
-Wistful,ˈwɪst.fəl,adj,Having or showing a feeling of vague or regretful longing.
-Xenolith,ˈzen.əl.ɪθ,n,A piece of rock within an igneous rock that is not derived from the original magma.
-Zealot,ˈzel.ət,n,"A person who is fanatical and uncompromising in pursuit of their religious, political, or other ideals."
-Acumen2,əˈkjuː.mən,n,"The ability to make good judgments and quick decisions, typically in a particular domain. (Variant index series #2 for robust layout testing)."
-Banal2,bəˈnɑːl,adj,So lacking in originality as to be obvious and boring. (Variant index series #2 for robust layout testing).
-Cacophony2,kəˈkɒf.ə.ni,n,"A harsh, discordant mixture of sounds often occurring in busy city environments. (Variant index series #2 for robust layout testing)."
-Deferential2,ˌdef.əˈren.ʃəl,adj,Showing respect and humble submission to a higher authority or elder. (Variant index series #2 for robust layout testing).
-Ephemeral2,ɪˈfem.ər.əl,adj,Lasting for a very short time; transient or fleeting by nature. (Variant index series #2 for robust layout testing).
-Furtive2,ˈfɜː.tɪv,adj,"Attempting to avoid notice or attention, typically because of guilt or a belief that discovery would lead to trouble. (Variant index series #2 for robust layout testing)."
-Garrulous2,ˈɡær.əl.əs,adj,"Excessively talkative, especially on trivial matters in social settings. (Variant index series #2 for robust layout testing)."
-Harangue2,həˈræŋ,n,A lengthy and aggressive speech directed at an audience or opponent. (Variant index series #2 for robust layout testing).
-Idiosyncrasy2,ˌɪd.i.əˈsɪŋ.krə.si,n,A mode of behavior or way of thought peculiar to an individual. (Variant index series #2 for robust layout testing).
-Juxtapose2,ˌdʒʌk.stəˈpəʊz,v,To place close together or side by side for comparison or contrast. (Variant index series #2 for robust layout testing).
-Kinetics2,kɪˈnet.ɪks,n,The branch of mechanics that deals with the actions of forces in producing or changing the motion of masses. (Variant index series #2 for robust layout testing).
-Laconic2,ləˈkɒn.ɪk,adj,Using very few words in writing or speech; concise to the point of seeming rude. (Variant index series #2 for robust layout testing).
-Meticulous2,məˈtɪk.jə.ləs,adj,Showing great attention to detail; very careful and precise. (Variant index series #2 for robust layout testing).
-Nefarious2,nɪˈfeə.ri.əs,adj,"Wicked, impious, or criminal; extremely villainous in action. (Variant index series #2 for robust layout testing)."
-Obfuscate2,ˈɒb.fʌs.keɪt,v,"To render obscure, unclear, or unintelligible on purpose. (Variant index series #2 for robust layout testing)."
-Paradigmatic2,ˌpær.ə.dɪɡˈmæt.ɪk,adj,Serving as a typical example or pattern of something; exemplary. (Variant index series #2 for robust layout testing).
-Quixotic2,kwɪkˈsɒt.ɪk,adj,"Exceedingly idealistic, unrealistic, and impractical. (Variant index series #2 for robust layout testing)."
-Recalcitrant2,rɪˈkæl.sɪ.trənt,adj,Having an obstinately uncooperative attitude toward authority or discipline. (Variant index series #2 for robust layout testing).
-Sycophant2,ˈsɪk.ə.fænt,n,A person who acts obsequiously toward someone important in order to gain advantage. (Variant index series #2 for robust layout testing).
-Taciturn2,ˈtæs.ɪ.tɜːn,adj,Reserved or uncommunicative in speech; saying very little. (Variant index series #2 for robust layout testing).
-Ubiquitous2,juːˈbɪk.wɪ.təs,adj,Present, appearing, or found everywhere at the same time. (Variant index series #2 for robust layout testing).
-Venerable2,ˈven.ər.ə.bəl,adj,"Accorded a great deal of respect, especially because of age, wisdom, or character. (Variant index series #2 for robust layout testing)."
-Wistful2,ˈwɪst.fəl,adj,Having or showing a feeling of vague or regretful longing. (Variant index series #2 for robust layout testing).
-Xenolith2,ˈzen.əl.ɪθ,n,A piece of rock within an igneous rock that is not derived from the original magma. (Variant index series #2 for robust layout testing).
-Zealot2,ˈzel.ət,n,"A person who is fanatical and uncompromising in pursuit of their religious, political, or other ideals. (Variant index series #2 for robust layout testing)."
-Acumen3,əˈkjuː.mən,n,"The ability to make good judgments and quick decisions, typically in a particular domain. (Variant index series #3 for robust layout testing)."
-Banal3,bəˈnɑːl,adj,So lacking in originality as to be obvious and boring. (Variant index series #3 for robust layout testing).
-Cacophony3,kəˈkɒf.ə.ni,n,"A harsh, discordant mixture of sounds often occurring in busy city environments. (Variant index series #3 for robust layout testing)."
-Deferential3,ˌdef.əˈren.ʃəl,adj,Showing respect and humble submission to a higher authority or elder. (Variant index series #3 for robust layout testing).
-Ephemeral3,ɪˈfem.ər.əl,adj,Lasting for a very short time; transient or fleeting by nature. (Variant index series #3 for robust layout testing).
-Furtive3,ˈfɜː.tɪv,adj,"Attempting to avoid notice or attention, typically because of guilt or a belief that discovery would lead to trouble. (Variant index series #3 for robust layout testing)."
-Garrulous3,ˈɡær.əl.əs,adj,"Excessively talkative, especially on trivial matters in social settings. (Variant index series #3 for robust layout testing)."
-Harangue3,həˈræŋ,n,A lengthy and aggressive speech directed at an audience or opponent. (Variant index series #3 for robust layout testing).
-Idiosyncrasy3,ˌɪd.i.əˈsɪŋ.krə.si,n,A mode of behavior or way of thought peculiar to an individual. (Variant index series #3 for robust layout testing).
-Juxtapose3,ˌdʒʌk.stəˈpəʊz,v,To place close together or side by side for comparison or contrast. (Variant index series #3 for robust layout testing).
-Kinetics3,kɪˈnet.ɪks,n,The branch of mechanics that deals with the actions of forces in producing or changing the motion of masses. (Variant index series #3 for robust layout testing).
-Laconic3,ləˈkɒn.ɪk,adj,Using very few words in writing or speech; concise to the point of seeming rude. (Variant index series #3 for robust layout testing).
-Meticulous3,məˈtɪk.jə.ləs,adj,Showing great attention to detail; very careful and precise. (Variant index series #3 for robust layout testing).
-Nefarious3,nɪˈfeə.ri.əs,adj,"Wicked, impious, or criminal; extremely villainous in action. (Variant index series #3 for robust layout testing)."
-Obfuscate3,ˈɒb.fʌs.keɪt,v,"To render obscure, unclear, or unintelligible on purpose. (Variant index series #3 for robust layout testing)."
-Paradigmatic3,ˌpær.ə.dɪɡˈmæt.ɪk,adj,Serving as a typical example or pattern of something; exemplary. (Variant index series #3 for robust layout testing).
-Quixotic3,kwɪkˈsɒt.ɪk,adj,"Exceedingly idealistic, unrealistic, and impractical. (Variant index series #3 for robust layout testing)."
-Recalcitrant3,rɪˈkæl.sɪ.trənt,adj,Having an obstinately uncooperative attitude toward authority or discipline. (Variant index series #3 for robust layout testing).
-Sycophant3,ˈsɪk.ə.fænt,n,A person who acts obsequiously toward someone important in order to gain advantage. (Variant index series #3 for robust layout testing).
-Taciturn3,ˈtæs.ɪ.tɜːn,adj,Reserved or uncommunicative in speech; saying very little. (Variant index series #3 for robust layout testing).
-Ubiquitous3,juːˈbɪk.wɪ.təs,adj,Present, appearing, or found everywhere at the same time. (Variant index series #3 for robust layout testing).
-Venerable3,ˈven.ər.ə.bəl,adj,"Accorded a great deal of respect, especially because of age, wisdom, or character. (Variant index series #3 for robust layout testing)."
-Wistful3,ˈwɪst.fəl,adj,Having or showing a feeling of vague or regretful longing. (Variant index series #3 for robust layout testing).
+Word,IPA,POS,Definition,Examples
+tart,tart,n,"1. sharp to the taste; acid; sour. (of wine) high or too high in acidity. (figuratively) sharp; keen; severe. 2. a delicious type of pie 3. (UK slang) a prostitute. (slang, der.) a woman with loose sexual morals","I ate a very ~ apple: ; you ~: (rude) interjection; pop ~: (AmEn) a fast food toaster pastry; jam ~: (rare) attractive woman; -let: a small tart; -let: (slang, derog.) a promiscuous young woman"
+acumen,əˈkjuː.mən,n & f,"The ability to make good judgments and quick decisions, typically in a particular domain.",business ~: shrewd judgment in commercial dealings;political ~: skill in reading and navigating power dynamics;
+banal,bəˈnɑːl,adj,So lacking in originality as to be obvious and boring.,~ remark: a comment so predictable it adds nothing;
+cacophony,kəˈkɒf.ə.ni,n,"A harsh, discordant mixture of sounds often occurring in busy city environments."
+conlang,konlung,n,"a constructed language, a non-naturally occurring language created intentionally by an individual or group","-er:a creator of constructed languages"
+deferential,ˌdef.əˈren.ʃəl,adj,Showing respect and humble submission to a higher authority or elder.
+ephemeral,ɪˈfem.ər.əl,adj,Lasting for a very short time; transient or fleeting by nature.
+furtive,ˈfɜː.tɪv,adj,"Attempting to avoid notice or attention, typically because of guilt or a belief that discovery would lead to trouble."
+garrulous,ˈɡær.əl.əs,adj,"Excessively talkative, especially on trivial matters in social settings."
+harangue,həˈræŋ,n,A lengthy and aggressive speech directed at an audience or opponent.
+idiosyncrasy,ˌɪd.i.əˈsɪŋ.krə.si,n,A mode of behavior or way of thought peculiar to an individual.
+juxtapose,ˌdʒʌk.stəˈpəʊz,v,To place close together or side by side for comparison or contrast.
+kinetics,kɪˈnet.ɪks,n,The branch of mechanics that deals with the actions of forces in producing or changing the motion of masses.
+laconic,ləˈkɒn.ɪk,adj,Using very few words in writing or speech; concise to the point of seeming rude.
+meticulous,məˈtɪk.jə.ləs,adj,Showing great attention to detail; very careful and precise.
+nefarious,nɪˈfeə.ri.əs,adj,"Wicked, impious, or criminal; extremely villainous in action."
+obfuscate,ˈɒb.fʌs.keɪt,v,"To render obscure, unclear, or unintelligible on purpose."
+paradigmatic,ˌpær.ə.dɪɡˈmæt.ɪk,adj,Serving as a typical example or pattern of something; exemplary.
+quixotic,kwɪkˈsɒt.ɪk,adj,"Exceedingly idealistic, unrealistic, and impractical."
+recalcitrant,rɪˈkæl.sɪ.trənt,adj,Having an obstinately uncooperative attitude toward authority or discipline.
+sycophant,ˈsɪk.ə.fænt,n,A person who acts obsequiously toward someone important in order to gain advantage.
+taciturn,ˈtæs.ɪ.tɜːn,adj,Reserved or uncommunicative in speech; saying very little.
+ubiquitous,juːˈbɪk.wɪ.təs,adj,Present, appearing, or found everywhere at the same time.
+venerable,ˈven.ər.ə.bəl,adj,"Accorded a great deal of respect, especially because of age, wisdom, or character."
+wistful,ˈwɪst.fəl,adj,Having or showing a feeling of vague or regretful longing.
+xenolith,ˈzen.əl.ɪθ,n,A piece of rock within an igneous rock that is not derived from the original magma.
+zealot,ˈzel.ət,n,"A person who is fanatical and uncompromising in pursuit of their religious, political, or other ideals."
+acumen2,əˈkjuː.mən,n,"The ability to make good judgments and quick decisions, typically in a particular domain. (Variant index series #2 for robust layout testing)."
+banal2,bəˈnɑːl,adj,So lacking in originality as to be obvious and boring. (Variant index series #2 for robust layout testing).
+cacophony2,kəˈkɒf.ə.ni,n,"A harsh, discordant mixture of sounds often occurring in busy city environments. (Variant index series #2 for robust layout testing)."
+deferential2,ˌdef.əˈren.ʃəl,adj,Showing respect and humble submission to a higher authority or elder. (Variant index series #2 for robust layout testing).
+ephemeral2,ɪˈfem.ər.əl,adj,Lasting for a very short time; transient or fleeting by nature. (Variant index series #2 for robust layout testing).
+furtive2,ˈfɜː.tɪv,adj,"Attempting to avoid notice or attention, typically because of guilt or a belief that discovery would lead to trouble. (Variant index series #2 for robust layout testing)."
+garrulous2,ˈɡær.əl.əs,adj,"Excessively talkative, especially on trivial matters in social settings. (Variant index series #2 for robust layout testing)."
+harangue2,həˈræŋ,n,A lengthy and aggressive speech directed at an audience or opponent. (Variant index series #2 for robust layout testing).
+idiosyncrasy2,ˌɪd.i.əˈsɪŋ.krə.si,n,A mode of behavior or way of thought peculiar to an individual. (Variant index series #2 for robust layout testing).
+juxtapose2,ˌdʒʌk.stəˈpəʊz,v,To place close together or side by side for comparison or contrast. (Variant index series #2 for robust layout testing).
+kinetics2,kɪˈnet.ɪks,n,The branch of mechanics that deals with the actions of forces in producing or changing the motion of masses. (Variant index series #2 for robust layout testing).
+laconic2,ləˈkɒn.ɪk,adj,Using very few words in writing or speech; concise to the point of seeming rude. (Variant index series #2 for robust layout testing).
+meticulous2,məˈtɪk.jə.ləs,adj,Showing great attention to detail; very careful and precise. (Variant index series #2 for robust layout testing).
+nefarious2,nɪˈfeə.ri.əs,adj,"Wicked, impious, or criminal; extremely villainous in action. (Variant index series #2 for robust layout testing)."
+obfuscate2,ˈɒb.fʌs.keɪt,v,"To render obscure, unclear, or unintelligible on purpose. (Variant index series #2 for robust layout testing)."
+paradigmatic2,ˌpær.ə.dɪɡˈmæt.ɪk,adj,Serving as a typical example or pattern of something; exemplary. (Variant index series #2 for robust layout testing).
+quixotic2,kwɪkˈsɒt.ɪk,adj,"Exceedingly idealistic, unrealistic, and impractical. (Variant index series #2 for robust layout testing)."
+recalcitrant2,rɪˈkæl.sɪ.trənt,adj,Having an obstinately uncooperative attitude toward authority or discipline. (Variant index series #2 for robust layout testing).
+sycophant2,ˈsɪk.ə.fænt,n,A person who acts obsequiously toward someone important in order to gain advantage. (Variant index series #2 for robust layout testing).
+taciturn2,ˈtæs.ɪ.tɜːn,adj,Reserved or uncommunicative in speech; saying very little. (Variant index series #2 for robust layout testing).
+ubiquitous2,juːˈbɪk.wɪ.təs,adj,Present, appearing, or found everywhere at the same time. (Variant index series #2 for robust layout testing).
+venerable2,ˈven.ər.ə.bəl,adj,"Accorded a great deal of respect, especially because of age, wisdom, or character. (Variant index series #2 for robust layout testing)."
+wistful2,ˈwɪst.fəl,adj,Having or showing a feeling of vague or regretful longing. (Variant index series #2 for robust layout testing).
+xenolith2,ˈzen.əl.ɪθ,n,A piece of rock within an igneous rock that is not derived from the original magma. (Variant index series #2 for robust layout testing).
+zealot2,ˈzel.ət,n,"A person who is fanatical and uncompromising in pursuit of their religious, political, or other ideals. (Variant index series #2 for robust layout testing)."
+acumen3,əˈkjuː.mən,n,"The ability to make good judgments and quick decisions, typically in a particular domain. (Variant index series #3 for robust layout testing)."
+banal3,bəˈnɑːl,adj,So lacking in originality as to be obvious and boring. (Variant index series #3 for robust layout testing).
+cacophony3,kəˈkɒf.ə.ni,n,"A harsh, discordant mixture of sounds often occurring in busy city environments. (Variant index series #3 for robust layout testing)."
+deferential3,ˌdef.əˈren.ʃəl,adj,Showing respect and humble submission to a higher authority or elder. (Variant index series #3 for robust layout testing).
+ephemeral3,ɪˈfem.ər.əl,adj,Lasting for a very short time; transient or fleeting by nature. (Variant index series #3 for robust layout testing).
+furtive3,ˈfɜː.tɪv,adj,"Attempting to avoid notice or attention, typically because of guilt or a belief that discovery would lead to trouble. (Variant index series #3 for robust layout testing)."
+garrulous3,ˈɡær.əl.əs,adj,"Excessively talkative, especially on trivial matters in social settings. (Variant index series #3 for robust layout testing)."
+harangue3,həˈræŋ,n,A lengthy and aggressive speech directed at an audience or opponent. (Variant index series #3 for robust layout testing).
+idiosyncrasy3,ˌɪd.i.əˈsɪŋ.krə.si,n,A mode of behavior or way of thought peculiar to an individual. (Variant index series #3 for robust layout testing).
+juxtapose3,ˌdʒʌk.stəˈpəʊz,v,To place close together or side by side for comparison or contrast. (Variant index series #3 for robust layout testing).
+kinetics3,kɪˈnet.ɪks,n,The branch of mechanics that deals with the actions of forces in producing or changing the motion of masses. (Variant index series #3 for robust layout testing).
+laconic3,ləˈkɒn.ɪk,adj,Using very few words in writing or speech; concise to the point of seeming rude. (Variant index series #3 for robust layout testing).
+meticulous3,məˈtɪk.jə.ləs,adj,Showing great attention to detail; very careful and precise. (Variant index series #3 for robust layout testing).
+nefarious3,nɪˈfeə.ri.əs,adj,"Wicked, impious, or criminal; extremely villainous in action. (Variant index series #3 for robust layout testing)."
+obfuscate3,ˈɒb.fʌs.keɪt,v,"To render obscure, unclear, or unintelligible on purpose. (Variant index series #3 for robust layout testing)."
+paradigmatic3,ˌpær.ə.dɪɡˈmæt.ɪk,adj,Serving as a typical example or pattern of something; exemplary. (Variant index series #3 for robust layout testing).
+quixotic3,kwɪkˈsɒt.ɪk,adj,"Exceedingly idealistic, unrealistic, and impractical. (Variant index series #3 for robust layout testing)."
+recalcitrant3,rɪˈkæl.sɪ.trənt,adj,Having an obstinately uncooperative attitude toward authority or discipline. (Variant index series #3 for robust layout testing).
+sycophant3,ˈsɪk.ə.fænt,n,A person who acts obsequiously toward someone important in order to gain advantage. (Variant index series #3 for robust layout testing).
+taciturn3,ˈtæs.ɪ.tɜːn,adj,Reserved or uncommunicative in speech; saying very little. (Variant index series #3 for robust layout testing).
+ubiquitous3,juːˈbɪk.wɪ.təs,adj,Present, appearing, or found everywhere at the same time. (Variant index series #3 for robust layout testing).
+venerable3,ˈven.ər.ə.bəl,adj,"Accorded a great deal of respect, especially because of age, wisdom, or character. (Variant index series #3 for robust layout testing)."
+wistful3,ˈwɪst.fəl,adj,Having or showing a feeling of vague or regretful longing. (Variant index series #3 for robust layout testing).
+tablebase,,n,"A computerized database that contains precalculated exhaustive analysis of a chess endgame position, typically used by a computer chess engine during play."
+tablemount,,n,A seamount with a flat top; synonym of guyot.
+tabsule,,n,A medicine tablet shaped like a capsule.
+tabtop,,n,Synonym of laplet.
+TACAN,ˈtæk.æn,n,"Acronym of tactical air navigation beacon, an ultra high frequency electronic radionavigation system able to provide aircraft with continuous bearing and slant range information to a selected station."
+tacnuke,,n,A tactical nuclear weapon.
+tacticool,,adj,"Having the impressive appearance, but not the functionality, of tactical military equipment, or being functional but also risibly tryhard about badass appearance."
+tactleneck,ˈtæktəl.nɛk,n,A black turtleneck used tactically to provide maximum skin coverage for blending in at night.
+Tadfool,,prop n,Any one of the Illithid parasite-infected playable characters in Baldur's Gate 3.
+Tae Bo,,n,A martial art invented in the United States based on taekwondo.
+Taffia,,prop n,Any group of Welsh people who practice nepotism or live in an ethnic enclave.
+tagball,ˈtæɡbɔːl,n,"a game/sport similar to paintball, where one tags out opponents with rubber balls fired from air pistols or paintball guns, without the mess of paint, akin to dart tag"
+Taglish,,prop n,an informal bilingual variety of the Tagalog language that incorporates English lexis and/or vice versa
+tagsonomy,,n,An informal classification system based on user-generated tags.
+taileron,ˈteɪləɹɒn,n,A kind of tailplane or stabilator that can move differentially to perform the roll control function of an aileron.
+tailmaw,,n,Alternative form of tailmouth.
+tailmouth,,n,"A tail, often a large bushy one with a mouth of its own, possessing a separate mind from who it belongs to."
+Taiwanglish,taɪˈwaŋɡlɪʃ,prop n,The form of broken English proverbially encountered in the user manuals and technical documentation accompanying electronic devices manufactured in Taiwan.
+takadiastase,,n,"A form of diastase resulting from the growth, development, and nutrition of koji."
+Talcum X,,prop n,Shaun King.
+Talibangelical,tæləbænˈd͡ʒɛlɪkəl,n,"An overzealous evangelical Christian, especially one who espouses strong right-wing views."
+Talibaptist,,n,A fundamentalist Christian.
+taliswoman,,n,A talisman in the form of a female figure.
+Talivan,,n,"A portable speed camera inside a police van, moved from place to place to detect speeding motorists."
+talkloid,,n,"The practice of producing speech using singing voice synthesis software, such as Vocaloid."
+Talmudvision,,n,"Television programming, regarded as dominated by Jewish interests."
+Talsinki,,prop n,"The cities of Helsinki (in Finland) and Tallinn (in Estonia), which share elements of their society, culture, and economy."
+Tamartian,,n,A fan of the American singer Tamar Braxton.
+tamavidin,,n,Any of a group of avidin-like biotin-binding proteins found in the tamogitake mushroom (of genus Pleurotus).
+Tamlish,,n,A crossover of Tamil and English language.
+tandemocracy,,n,"Synonym of diarchy, especially involving alternation of offices in an allegedly democratic context."
+tangelo,ˈtænd͡ʒələʊ,n,A citrus fruit that is a cross between a tangerine and a pomelo or a grapefruit.
+tangemon,,n,A fruit that is a hybrid of the tangerine and lemon.
+Tanglish,ˈtæŋɡlɪʃ,prop n,An informal language formed by deliberately combining elements of English and Tamil.
+tankini,tænˈkiːni,n,A bathing suit composed of a tank top and the lower half of a bikini.
+tanktainer,,n,"A container for the transport of liquids, gases and powders as bulk cargo."
+tannoy,ˈtænɔɪ,n,A public address system.
+tanorexia,,n,A condition whose sufferers believe they are too pale and become obsessed with tanning.
+tanorexic,,adj,"Relating to, or suffering from, tanorexia."
+tantoo,,n,A tan line planned in the style of a tattoo.
+Tanzania,ˌtæn.zəˈniːə,prop n,A country in East Africa. Official name: United Republic of Tanzania.
+tapespondence,,n,Communications sent on tape between tapespondents.
+tapespondent,,n,A sort of penfriend who communicated by means of early audio tape recordings sent in the post.
+tardyon,ˈtɑː.di.ɒn,n,Any particle with non-zero mass (i.e. one that travels more slowly than the speed of light).
+Tasexit,,prop n,The secession or expulsion of the state of Tasmania from Australia or another Australian Government initiative.
+Tasmaniac,,n,"A native or inhabitant of Tasmania, Australia."
+Taswegian,tæzˈwiːd͡ʒən,n,A Tasmanian seaman.
+TatsuJun,,prop n,The ship of characters Tatsuya Suou and Jun Kurosu from the Persona series.
+tatum,ˈteɪtəm,n,The shortest statistically significant time interval between successive notes in a rhythmic phrase or a musical piece.
+taupathology,,n,The pathology of taupathy
+Taurarian,,n,A person born around the cusp of Aries and Taurus.
+Tauremini,,n,A person born around the cusp of Taurus and Gemini.
+tautism,,n,The incommunicative state of a person immersed in a virtual world.
+Taxachusetts,,prop n,Massachusetts
+taxasphere,,n,The community of taxonomic experts
+taxflation,,n,bracket creep
+Tazer,,prop n,Nickname for people with the surname Toews.
+teabacco,,n,A tobacco substitute illicitly made in prisons from tea and nicotine.
+teahadist,,n,"An affiliate of the Tea Party movement, particularly an overzealous one."
+Tealiban,,prop n,"The Tea Party party movement in twenty-first-century American politics, when considered to be a conservative religious movement similar to the Taliban."

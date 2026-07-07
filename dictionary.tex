@@ -29,15 +29,53 @@
 \renewcommand{\headrulewidth}{0.4pt}
 
 % --- ENTRY MACRO ---
-\newcommand{\phonetic}[1]{{\textcolor[rgb]{0.3,0.3,0.3}{[#1]}}}
+% Prints nothing (not even empty brackets) when the IPA cell is empty
+\newcommand{\phonetic}[1]{%
+  \if\relax\detokenize{#1}\relax\else{\textcolor[rgb]{0.3,0.3,0.3}{[#1]}}\fi}
 \newcommand{\pos}[1]{{\em #1}}
 
+% NOTE: indexing moved out of this macro -- the Lua engine emits
+% \index{sortkey@word} itself so the index follows the custom collation.
+% \interlinepenalty forbids column/page breaks INSIDE the entry paragraph
+% (dictionary convention: an entry never splits); breaks remain allowed
+% between entries. Grouped so the penalty does not leak out.
 \newcommand{\printentry}[4]{%
   \marks\dictmark{#1}% Update header marks
-  \index{#1} % log word and page number
-  \par\dictfontsize
-  \hangindent=1.5em\hangafter=1%
-  \textbf{#1} \phonetic{#2} \pos{#3} #4\par
+  {\par\dictfontsize
+   \interlinepenalty=10000
+   \hangindent=1.5em\hangafter=1%
+   \textbf{#1} \phonetic{#2} \pos{#3} #4\par}%
+}
+
+% --- EXAMPLE LINE MACRO ---
+% Charis SIL has no glyph for U+25C8, so fetch it from DejaVu Sans,
+% scaled down slightly to sit well against the 9.5pt Charis text.
+\newfontfamily\exmarkerfont{DejaVu Sans}[Scale=0.75]
+\newcommand{\exmarker}{{\exmarkerfont ◈ }}
+
+% One example per line, kept on the 14pt baseline grid via \dictfontsize.
+% Indented to the entry hang (1.5em); wrapped lines hang a little further.
+% \nopagebreak glues the example to the material above (its entry or the
+% previous example); \interlinepenalty keeps the example line itself whole.
+\newcommand{\printexample}[2]{%
+  {\par\nopagebreak\dictfontsize
+   \interlinepenalty=10000
+   \leftskip=1.5em
+   \hangindent=1em\hangafter=1%
+   \noindent\exmarker\,\textbf{#1} #2\par}%
+}
+
+% --- LETTER BLOCK HEADER ---
+% Every letter block begins on a fresh page with a large headline letter.
+% \raggedbottom is only in force while \clearpage ships out the (possibly
+% short) last page of the previous block; the \flushbottom grid lock is
+% restored immediately after. The headline sits on a 42pt (3 x 14pt) line
+% so the entries below stay on the baseline grid.
+\newcommand{\letterheader}[1]{%
+  \raggedbottom
+  \clearpage
+  \flushbottom
+  {\centering\fontsize{28pt}{42pt}\selectfont\bfseries #1\par}%
 }
 
 % --- EMBEDDED LUA CSV PARSER ENGINE ---
@@ -95,6 +133,129 @@ function escape_latex(text)
     return text
 end
 
+-- Bold inline sense numbers in multi-definition entries. Matches
+-- "\s\d{1,2}.\s" (e.g. " 2. ", " 12. ") so ordinary sentence-ending
+-- digits like "series #2." followed by a parenthesis are left untouched.
+-- Also anchors the leading sense at the very start of the field ("1. ...").
+-- Apply AFTER escape_latex (digits, dots and spaces are never escaped).
+function format_senses(text)
+    text = text:gsub("^(%d%d?%.)(%s)", "\\textbf{%1}%2")
+    text = text:gsub("(%s)(%d%d?%.)(%s)", "%1\\textbf{%2}%3")
+    return text
+end
+
+-- Italicize parenthesized usage labels in definitions: regionalisms
+-- "(AmEn, UK)", attitude "(derog.)", or combinations "(UK, slang, derog.)".
+-- A label is recognized in expansion-initial position only, i.e. either at
+-- the very start of a sole unnumbered definition, or right after a full
+-- stop. The latter covers both a sense number ("2. (UK) ...", since "2."
+-- itself ends in a stop) and a new expansion within a sense ("...; sour.
+-- (of wine) high in acidity."). Parentheticals elsewhere in the running
+-- text are left untouched. The parentheses stay upright; only the content
+-- is italic. Nested parentheses are not supported. The two patterns cannot
+-- overlap (field start has no preceding stop), so no double-wrapping.
+-- Apply AFTER escape_latex but BEFORE format_senses, so this sees the raw
+-- "1. " form, not the inserted \textbf{}.
+function format_labels(text)
+    -- Sole unnumbered definition: label at the very start of the field
+    text = text:gsub("^(%s*)%(([^()]+)%)", "%1(\\textit{%2})")
+    -- Label right after a full stop: sense number or expansion boundary
+    text = text:gsub("(%.%s+)%(([^()]+)%)", "%1(\\textit{%2})")
+    return text
+end
+
+-- Parse the Examples column: a semicolon separated list of
+-- "example expression: definition" pairs. Returns a string of
+-- \printexample{expr}{def} calls, or "" when the cell is empty.
+function parse_examples(text)
+    if not text or text:gsub("%s+", "") == "" then return "" end
+    local out = {}
+    for item in text:gmatch("[^;]+") do
+        -- Split on the first colon only; definitions may contain further colons
+        local expr, def = item:match("^%s*(.-)%s*:%s*(.-)%s*$")
+        if expr and expr ~= "" then
+            table.insert(out, string.format("\\printexample{%s}{%s}",
+                escape_latex(expr), escape_latex(def)))
+        end
+    end
+    return table.concat(out)
+end
+
+-- Case folding that also covers non-ASCII when LuaTeX's unicode lib exists
+local ulower = (unicode and unicode.utf8 and unicode.utf8.lower) or string.lower
+
+-- Load the custom collation alphabet: every sortable "letter" (possibly a
+-- multi-character digraph like "Ll" or a diacritic like "Č") separated by
+-- commas and/or blanks -- both work, mixed freely. Returns nil if absent.
+function load_sort_order(filename)
+    local f = io.open(filename, "r")
+    if not f then return nil end
+    local content = f:read("*a")
+    f:close()
+    local letters = {}
+    for tok in content:gmatch("[^,%s]+") do
+        table.insert(letters, tok)
+    end
+    if #letters == 0 then return nil end
+    return letters
+end
+
+-- Build collator state: rank per lowercased letter, plus the letter list
+-- ordered longest-first so digraphs ("ll") beat their prefix letter ("l")
+function build_collator(letters)
+    local rank, probe = {}, {}
+    for i, l in ipairs(letters) do
+        local ll = ulower(l)
+        rank[ll] = i
+        table.insert(probe, ll)
+    end
+    table.sort(probe, function(a, b) return #a > #b end)
+    return rank, probe
+end
+
+-- Turn a word into its sequence of sort ranks via longest-match. Anything
+-- not listed in the sort order sinks behind all real letters (1000 + byte),
+-- so digits and stray symbols never claim a letter block of their own.
+function sort_tokens(word, rank, probe)
+    local w = ulower(word)
+    local tokens = {}
+    local pos = 1
+    while pos <= #w do
+        local matched = false
+        for _, l in ipairs(probe) do
+            if w:sub(pos, pos + #l - 1) == l then
+                table.insert(tokens, rank[l])
+                pos = pos + #l
+                matched = true
+                break
+            end
+        end
+        if not matched then
+            table.insert(tokens, 1000 + w:byte(pos))
+            pos = pos + 1
+        end
+    end
+    return tokens
+end
+
+-- Encode a token sequence as a fixed-width sort key for makeindex, used
+-- via \index{key@word}. Each rank becomes three base-26 lowercase letters
+-- ("aab", "aac", ...): makeindex would sort digit-leading keys numerically
+-- (its "numbers" group), but pure-letter keys compare cleanly byte-wise,
+-- making the index collation match ours exactly. Capacity 26^3 = 17576
+-- comfortably covers alphabet ranks plus the 1000+byte unknown-char sink.
+function index_key(tokens)
+    local parts = {}
+    for _, t in ipairs(tokens) do
+        local n = t
+        local c3 = n % 26; n = math.floor(n / 26)
+        local c2 = n % 26; n = math.floor(n / 26)
+        local c1 = n % 26
+        table.insert(parts, string.char(97 + c1, 97 + c2, 97 + c3))
+    end
+    return table.concat(parts)
+end
+
 -- Main engine pipeline
 function process_dictionary_csv(filename)
     local file = io.open(filename, "r")
@@ -103,6 +264,8 @@ function process_dictionary_csv(filename)
         return
     end
 
+    -- Pass 1: collect all rows
+    local entries = {}
     local is_header = true
     for line in file:lines() do
         if is_header then
@@ -110,21 +273,67 @@ function process_dictionary_csv(filename)
         else
             -- Strip trailing windows/unix carriage returns smoothly
             line = line:gsub("[\r\n]", "")
-            if line:gsub("%s+", "") ~= "" then 
+            if line:gsub("%s+", "") ~= "" then
                 local data = parse_csv_line(line)
                 if #data >= 4 then
-                    local word       = escape_latex(data[1])
-                    local ipa        = data[2] -- Retain raw string safely for font structures
-                    local pos        = escape_latex(data[3])
-                    local definition = escape_latex(data[4])
-                    
-                    -- Ship parameters directly back into TeX macros
-                    tex.print(string.format("\\printentry{%s}{%s}{%s}{%s}", word, ipa, pos, definition))
+                    table.insert(entries, data)
                 end
             end
         end
     end
     file:close()
+
+    -- Pass 2: optional custom collation (sortorder.txt). Without the file
+    -- the entries flow through untouched, in CSV order, without headers.
+    local letters = load_sort_order("sortorder.txt")
+    if letters then
+        local rank, probe = build_collator(letters)
+        for _, e in ipairs(entries) do
+            e.tokens = sort_tokens(e[1], rank, probe)
+        end
+        table.sort(entries, function(a, b)
+            local ta, tb = a.tokens, b.tokens
+            for i = 1, math.min(#ta, #tb) do
+                if ta[i] ~= tb[i] then return ta[i] < tb[i] end
+            end
+            if #ta ~= #tb then return #ta < #tb end
+            return a[1] < b[1] -- deterministic tie-break
+        end)
+    end
+
+    -- Pass 3: ship entries, opening a letter block whenever the leading
+    -- letter changes. The header shows the letter as written in sortorder.txt.
+    local current = nil
+    for _, e in ipairs(entries) do
+        if letters then
+            local first = e.tokens[1]
+            if first and first <= #letters and first ~= current then
+                current = first
+                tex.print(string.format("\\letterheader{%s}", escape_latex(letters[first])))
+            end
+        end
+        local word       = escape_latex(e[1])
+        local ipa        = e[2] -- Retain raw string safely for font structures
+        local pos        = escape_latex(e[3])
+        local definition = format_senses(format_labels(escape_latex(e[4])))
+
+        -- Log word and page number. With a custom sort order, prefix the
+        -- makeindex "key@display" sort key so the index collates identically.
+        if letters then
+            tex.print(string.format("\\index{%s@%s}", index_key(e.tokens), word))
+        else
+            tex.print(string.format("\\index{%s}", word))
+        end
+
+        -- Ship parameters directly back into TeX macros
+        tex.print(string.format("\\printentry{%s}{%s}{%s}{%s}", word, ipa, pos, definition))
+
+        -- Optional 5th column: examples, one \printexample per item
+        local examples = parse_examples(e[5])
+        if examples ~= "" then
+            tex.print(examples)
+        end
+    end
 end
 \end{luacode*}
 
