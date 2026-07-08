@@ -1,6 +1,7 @@
 # Dictionary Sample
 
 A print-ready dictionary built with **LuaLaTeX**. Entries live in `lexicon.csv` and are parsed at compile time by a Lua CSV engine.
+Abbreviations live in `abbreviations.csv` as a three column CSV. You may have to run `lualatex` twice when building this project.
 
 ## Project layout
 
