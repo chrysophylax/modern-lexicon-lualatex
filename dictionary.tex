@@ -30,6 +30,8 @@
 
 % Entry macros, running-head marks and the CSV engine
 \usepackage{dictionary-tools}
+% abbreviations table
+\usepackage{dictionary-abbreviations}
 
 % Charis SIL has the richest IPA coverage; use it for transcriptions only
 \newfontfamily\charisipafont{CharisSIL}[
@@ -62,14 +64,22 @@
 % here our actual document begins
 % let there be book
 \begin{document}
+\clearpage
+\onecolumn
 \pagenumbering{roman}
+
 % the pages before the actual dictionary
 \include{cover}
 \include{copyright}
 \include{thanks}
 \include{foreword}
+% print our abbreviations page
+%\thispagestyle{empty}
+\printabbreviations{abbreviations.csv}
+\include{notes}
 \include{forepage}
 % build the lexicon from our csv
+\twocolumn
 \pagenumbering{arabic}
 \builddictionary{lexicon.csv}
 \clearpage
