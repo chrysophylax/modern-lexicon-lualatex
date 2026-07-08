@@ -7,10 +7,22 @@
 
 \usepackage{fontspec}
 \usepackage{microtype}
-\setmainfont{Charis SIL} % Ensure this font is installed on your system
+% Fonts are vendored in fonts/ (see ACKNOWLEDGEMENTS.md for licenses).
+% Gentium covers Latin, Greek and Cyrillic -- our headword scripts.
+\setmainfont{Gentium}[
+  Path=./fonts/, Extension=.ttf,
+  UprightFont=*-Regular, BoldFont=*-Bold,
+  ItalicFont=*-Italic, BoldItalicFont=*-BoldItalic]
 
 % Entry macros, running-head marks and the CSV engine
 \usepackage{dictionary-tools}
+
+% Charis SIL has the richest IPA coverage; use it for transcriptions only
+\newfontfamily\charisipafont{CharisSIL}[
+  Path=./fonts/, Extension=.ttf,
+  UprightFont=*-Regular, BoldFont=*-Bold,
+  ItalicFont=*-Italic, BoldItalicFont=*-BoldItalic]
+\renewcommand{\dictipafont}{\charisipafont}
 
 % --- GRID AND TYPOGRAPHY LOCKS ---
 % Entries are set at 9.5pt/14pt (\dictfontsize from dictionary-tools);

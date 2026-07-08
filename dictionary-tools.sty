@@ -73,9 +73,13 @@
   \fi}
 
 % --- ENTRY MACROS ---
+% Font hook for IPA transcriptions: no-op by default (main font is used).
+% Documents whose main font lacks full IPA coverage point this at a
+% dedicated family, e.g. \renewcommand{\dictipafont}{\charisipafont}.
+\newcommand{\dictipafont}{}
 % Prints nothing (not even empty brackets) when the IPA cell is empty
 \newcommand{\phonetic}[1]{%
-  \if\relax\detokenize{#1}\relax\else{\textcolor[rgb]{0.3,0.3,0.3}{[#1]}}\fi}
+  \if\relax\detokenize{#1}\relax\else{\dictipafont\textcolor[rgb]{0.3,0.3,0.3}{[#1]}}\fi}
 \newcommand{\pos}[1]{{\em #1}}
 
 % The Lua engine emits \index{sortkey@word} itself so the index follows

@@ -79,7 +79,7 @@ function M.escape_latex(text)
     if not text then return "" end
     text = text:gsub("\\", "\\textbackslash{}")
     text = text:gsub("([&%%%$#{}_])", "\\%1")
-    text = text:gsub("~", "\\textasciitilde{}")
+    text = text:gsub("~", "⁓") -- use a swung dash instead of tilde
     text = text:gsub("%^", "\\textasciicircum{}")
     return text
 end
