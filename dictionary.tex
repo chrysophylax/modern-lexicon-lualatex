@@ -7,12 +7,26 @@
 
 \usepackage{fontspec}
 \usepackage{microtype}
+
+% fallback table to Dejavu Serif if we are missing a symbol
+\directlua{
+  luaotfload.add_fallback (
+    "scriptfallback",
+    {
+      "DejaVuSerif:mode=node;script=latn;"
+    }
+  )
+}
+
+
 % Fonts are vendored in fonts/ (see ACKNOWLEDGEMENTS.md for licenses).
 % Gentium covers Latin, Greek and Cyrillic -- our headword scripts.
 \setmainfont{Gentium}[
   Path=./fonts/, Extension=.ttf,
   UprightFont=*-Regular, BoldFont=*-Bold,
-  ItalicFont=*-Italic, BoldItalicFont=*-BoldItalic]
+  ItalicFont=*-Italic, BoldItalicFont=*-BoldItalic,
+  Ligatures = TeX,
+  RawFeature = {fallback=scriptfallback}]
 
 % Entry macros, running-head marks and the CSV engine
 \usepackage{dictionary-tools}
