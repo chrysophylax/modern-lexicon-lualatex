@@ -1,7 +1,11 @@
 # Dictionary Sample
 
-A print-ready dictionary built with **LuaLaTeX**. Entries live in `lexicon.csv` and are parsed at compile time by a Lua CSV engine.
+A (NOT YET) print-ready dictionary built with **LuaLaTeX**. Entries live in `lexicon.csv` and are parsed at compile time by a Lua CSV engine.
 Abbreviations live in `abbreviations.csv` as a three column CSV. You may have to run `lualatex` twice when building this project.
+
+Example words are pulled from either programatically generated sources, Wikipedia's Wiktionary project or just mad writing by me. 
+
+All project-written _code_ is released under https://creativecommons.org/publicdomain/zero/1.0/ ; the impressum's copyright claim is a placeholder only and has no legal meaning.
 
 ## Project layout
 
@@ -37,7 +41,7 @@ acumen,əˈkjuː.mən,n & f,"The ability to make good judgments...",business ~: 
 | `IPA` | yes | Raw IPA transcription (not LaTeX-escaped). May be empty — no brackets are printed then. |
 | `POS` | yes | Part of speech, e.g. `n`, `adj`, `v`. |
 | `Definition` | yes | Quote the field (`"..."`) if it contains commas; use `""` for literal quotes. See *Definition markup* below. |
-| `Examples` | no | Semicolon-separated pairs: `expression: definition;expression 2: definition;`. Split on the *first* colon. Use `~` as a placeholder for the headword. An item **without** a colon is not a new example — it continues the previous definition and is rejoined with `;`, so example definitions may safely contain semicolons (but not colons). |
+| `Examples` | no | Semicolon-separated pairs: `expression: definition;expression 2: definition;`. Split on the *first* colon. Use `~` as a placeholder for the headword — automatically mapped to a swung dash. An item **without** a colon is not a new example — it continues the previous definition and is rejoined with `;`, so example definitions may safely contain semicolons (but not colons). |
 
 ### Definition markup
 
@@ -82,6 +86,7 @@ LaTeX packages (all included in TeX Live / MiKTeX):
 - `fancyhdr`
 
 System fonts:
-
-- **Charis SIL** — main text font
-- **DejaVu Sans** — supplies the `◈` (U+25C8) example marker missing from Charis SIL
+- **Gentium** — main text font
+- **Charis SIL** — main IPA text font
+- **Dejavu Serif** — main fallback font
+- **DejaVu Sans** — supplies only the `◈` (U+25C8) example marker
