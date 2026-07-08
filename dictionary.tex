@@ -74,8 +74,13 @@
 \include{thanks}
 \include{foreword}
 % print our abbreviations page
-%\thispagestyle{empty}
+% The table is a longtable and may span several pages, so \thispagestyle
+% would only affect the first: switch to plain (footer only, like the
+% foreword) and restore fancy once the last table page has shipped out.
+\pagestyle{plain}
 \printabbreviations{abbreviations.csv}
+\clearpage
+\pagestyle{fancy}
 \include{notes}
 \include{forepage}
 % build the lexicon from our csv
