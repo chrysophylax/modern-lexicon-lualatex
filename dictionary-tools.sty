@@ -162,27 +162,31 @@
 }
 
 % --- LETTER BLOCK HEADER ---
-% Every letter block begins on a fresh page with a large headline letter.
-% \raggedbottom is only in force while \clearpage ships out the (possibly
-% short) last page of the previous block; the \flushbottom grid lock is
-% restored immediately after.
+% Every letter block begins on a fresh page with the headline letter set
+% full-width above BOTH columns, in the manner of most print dictionaries:
+% \twocolumn[...] restarts the page (its internal \clearpage ships the
+% previous block's short last page while \raggedbottom is in force) and
+% typesets its argument across the whole measure, so both columns start
+% at the same height and are in register with each other by construction.
 %
-% GRID SAFETY: at the top of a column the first baseline sits at \topskip
-% -- unless the line is taller, in which case it is pushed down by the
-% excess. A raw 28pt glyph (~20pt ascent, ~7pt depth) would (a) overflow
-% \topskip and (b) trip the \lineskip fallback against the next entry
-% line, knocking column 1 off the 14pt grid while column 2 starts clean.
-% So the glyph is \smash'ed (zero height/depth) and a strut supplies the
-% line's exact geometry: height \topskip + 2 grid lines, depth 0. The
-% first entry baseline then lands at \topskip + 3 x 14pt -- back on the
-% same grid as the facing column.
+% GRID SAFETY: LaTeX routes the full-width argument through the
+% double-float mechanism (\@topnewpage): the argument box gets
+% \vskip -\dbltextfloatsep appended inside, and the output routine
+% re-adds \vskip \dbltextfloatsep above the columns -- the two cancel,
+% so the columns begin exactly the NATURAL HEIGHT of our content below
+% the text-area top. Fixing that content at 70pt (5 x 14pt) therefore
+% puts every baseline of this page on the same grid as the facing page.
+% The letter is centred inside the vbox between \vfil's, so its font
+% metrics cannot leak into the page geometry.
 \newcommand{\letterheader}[1]{%
   \raggedbottom
-  \clearpage
+  \twocolumn[{%
+    \vbox to 70pt{%
+      \vfil
+      {\centering\fontsize{28pt}{28pt}\selectfont\bfseries #1\par}%
+      \vfil}%
+  }]%
   \flushbottom
-  {\centering
-   \rule{0pt}{\dimexpr\topskip+28pt\relax}%
-   \smash{\fontsize{28pt}{28pt}\selectfont\bfseries #1}\par}%
 }
 
 \endinput

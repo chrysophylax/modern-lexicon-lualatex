@@ -57,8 +57,14 @@
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[LE,RO]{\small\bfseries\thepage}
-\fancyhead[LO,RE]{\small\bfseries\FirstMark[page]{dictword}\ \ --\ \ \LastMark[page]{dictword}\contnote}
+% Guide words at the header edges, print-dictionary style: the page's
+% first headword flush left, its last flush right. The continuation
+% note follows the first word -- it refers to the entry still open at
+% the top of the page.
+\fancyhead[L]{\small\bfseries\FirstMark[page]{dictword}\contnote}
+\fancyhead[R]{\small\bfseries\LastMark[page]{dictword}}
+% Page number in the footer, at the outer edge
+\fancyfoot[LE,RO]{\small\bfseries\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
 
 % here our actual document begins
@@ -89,7 +95,10 @@
 \builddictionary{lexicon.csv}
 \clearpage
 \raggedbottom % allow undedfull vbox for last entries
-% 3. Switch back to a cleaner header format for the index section
-\fancyhead[LO,RE]{\small\bfseries INDEX}
+% 3. Switch back to a cleaner header format for the index section:
+% clear BOTH guide-word fields (the dictword marks stop updating here
+% and would otherwise show the last dictionary page's words).
+\fancyhead[L]{\small\bfseries INDEX}
+\fancyhead[R]{}
 \printindex
 \end{document}
