@@ -11,6 +11,9 @@ A print-ready dictionary built with **LuaLaTeX**. Entries live in `lexicon.csv` 
 | `dictionary-tools.lua` | The engine: CSV parsing, definition/label/sense formatting, custom collation, index keys. Emits the macros defined in the `.sty` (the contract is documented in both file headers). |
 | `lexicon.csv` | The entries (see *CSV format*). |
 | `sortorder.txt` | Optional collation alphabet (see *Sort order*). |
+| `dictionary-abbreviations.sty` | Styling for the abbreviations table. |
+| `dictionary-abbreivations.lua` | Parses 3-column CSV for abbreviations table. |
+| `abbreviations.csv` | your csv of abbreviations! Three columns. Simple. |
 
 ## Building
 
