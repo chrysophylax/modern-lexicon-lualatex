@@ -165,13 +165,24 @@
 % Every letter block begins on a fresh page with a large headline letter.
 % \raggedbottom is only in force while \clearpage ships out the (possibly
 % short) last page of the previous block; the \flushbottom grid lock is
-% restored immediately after. The headline sits on a 42pt (3 x 14pt) line
-% so the entries below stay on the baseline grid.
+% restored immediately after.
+%
+% GRID SAFETY: at the top of a column the first baseline sits at \topskip
+% -- unless the line is taller, in which case it is pushed down by the
+% excess. A raw 28pt glyph (~20pt ascent, ~7pt depth) would (a) overflow
+% \topskip and (b) trip the \lineskip fallback against the next entry
+% line, knocking column 1 off the 14pt grid while column 2 starts clean.
+% So the glyph is \smash'ed (zero height/depth) and a strut supplies the
+% line's exact geometry: height \topskip + 2 grid lines, depth 0. The
+% first entry baseline then lands at \topskip + 3 x 14pt -- back on the
+% same grid as the facing column.
 \newcommand{\letterheader}[1]{%
   \raggedbottom
   \clearpage
   \flushbottom
-  {\centering\fontsize{28pt}{42pt}\selectfont\bfseries #1\par}%
+  {\centering
+   \rule{0pt}{\dimexpr\topskip+28pt\relax}%
+   \smash{\fontsize{28pt}{28pt}\selectfont\bfseries #1}\par}%
 }
 
 \endinput
